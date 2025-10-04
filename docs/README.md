@@ -12,18 +12,6 @@ The documentation is organized as follows:
 
 ---
 
-## 🐳 Docker Integration
-
-Essentia uses **Docker** to simplify deployment and ensure consistency across development environments.  
-Containerization will allow each microservice — the **Java database service** and the **Python REST API service** — to run independently and communicate through a networked environment.
-
-You will find:
-- `Dockerfile` examples for both services.
-- A `docker-compose.yml` file for orchestrating the entire application stack.
-- Environment setup instructions and tips for local deployment.
-
----
-
 ## 🧭 Purpose
 
 This folder is designed to:
