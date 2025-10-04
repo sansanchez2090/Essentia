@@ -4,6 +4,14 @@ Essentia is a lightweight web platform designed to manage a collection of perfum
 
 ---
 
+## 👥 Project Members
+
+ - Lilly Sofía Ayala Rojas - 20211020020
+ - Santiago Sánchez Moya - 20211020032
+ - Santiago Ávila - 
+
+---
+
 ## 🚀 Features
 
 - 📦 Create, read, update, and delete perfume records.
