@@ -21,7 +21,7 @@ It serves as the foundation for understanding the business logic behind Essentia
 ---
 
 ## 2️⃣ User Stories
-This section presents the **user stories** for the main roles in the system (admin, user, and manager),  
+This section presents the **user stories** for the main roles in the system (admin, user),  
 describing how they interact with the platform and what outcomes they expect.  
 Each story follows the standard format and includes **acceptance criteria** for clarity and testability.
 
