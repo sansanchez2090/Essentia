@@ -9,6 +9,7 @@ Welcome to the **documentation space** of **Essentia**, a lightweight web platfo
 The documentation is organized as follows:
 
 - **Workshop-1/** – Project definition and planning artifacts (Business Model Canvas, User Stories, etc.)
+- **Workshop-2/** – Application Design and UI Progress
 
 ---
 
