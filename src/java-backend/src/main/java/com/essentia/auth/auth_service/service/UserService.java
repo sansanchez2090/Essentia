@@ -24,6 +24,7 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
