@@ -25,7 +25,7 @@ public class UserProfileService {
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 
         Optional<UserProfile> existingProfile = userProfileRepository.findByUser(user);
-        
+
         if (existingProfile.isPresent()) {
             // Update existing profile
             UserProfile profile = existingProfile.get();
@@ -67,7 +67,7 @@ public class UserProfileService {
     public UserProfile updateAvatar(Long userId, String avatarUrl) {
         UserProfile profile = userProfileRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Profile not found for user ID: " + userId));
-        
+
         profile.setAvatarUrl(avatarUrl);
         return userProfileRepository.save(profile);
     }
@@ -93,10 +93,14 @@ public class UserProfileService {
         int totalFields = 3; // firstName, lastName, phone
         int completedFields = 0;
 
-        if (profile.getFirstName() != null && !profile.getFirstName().trim().isEmpty()) completedFields++;
-        if (profile.getLastName() != null && !profile.getLastName().trim().isEmpty()) completedFields++;
-        if (profile.getPhone() != null && !profile.getPhone().trim().isEmpty()) completedFields++;
+        if (profile.getFirstName() != null && !profile.getFirstName().trim().isEmpty())
+            completedFields++;
+        if (profile.getLastName() != null && !profile.getLastName().trim().isEmpty())
+            completedFields++;
+        if (profile.getPhone() != null && !profile.getPhone().trim().isEmpty())
+            completedFields++;
 
-        return (completedFields * 100) / totalFields;
+        // Use floating point division and round to nearest integer
+        return (int) Math.round((completedFields * 100.0) / totalFields);
     }
 }
