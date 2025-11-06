@@ -78,6 +78,12 @@
 			<artifactId>spring-dotenv</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>6.1.9</version> <!-- Usa la versión compatible con tu Spring Boot -->
+		</dependency>
 	</dependencies>
 
 	<build>
