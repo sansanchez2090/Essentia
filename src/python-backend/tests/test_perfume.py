@@ -9,7 +9,7 @@ def test_get_all_perfumes():
     assert isinstance(response.json(), list)
 
 def test_get_perfume_by_id():
-    # Crear un perfume primero
+    # Create a perfume
     perfume = {
         "name": "Azure Bloom",
         "description": "Fresh oceanic floral fragrance.",
@@ -20,7 +20,7 @@ def test_get_perfume_by_id():
     create_response = client.post("/perfumes", json=perfume)
     perfume_id = create_response.json()["id"]
 
-    # Obtenerlo por ID
+    # ID
     response = client.get(f"/perfumes/{perfume_id}")
     assert response.status_code == 200
     data = response.json()
@@ -39,11 +39,11 @@ def test_delete_perfume():
     create_response = client.post("/perfumes", json=perfume)
     perfume_id = create_response.json()["id"]
 
-    # Eliminarlo
+    # Deleting
     delete_response = client.delete(f"/perfumes/{perfume_id}")
     assert delete_response.status_code == 200
     assert delete_response.json()["detail"] == "Perfume deleted successfully"
 
-    # Confirmar que ya no existe
+    # Validating
     get_response = client.get(f"/perfumes/{perfume_id}")
     assert get_response.status_code == 404
