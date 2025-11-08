@@ -40,6 +40,8 @@ def create_perfume(perfume: schemas.PerfumeBase, db: Annotated[Session, Depends(
     db.commit()
     db.refresh(db_perfume)
 
+    return db_perfume
+
 @router.delete("/perfumes/{perfume_id}")
 async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)]):
     """
