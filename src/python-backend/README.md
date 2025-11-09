@@ -25,4 +25,68 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+```
+
 💡 Replace postgres:password@localhost:5432 with your PostgreSQL credentials.
+
+## 🧠 API Documentation
+
+| Type | URL |
+| :--- | :--- |
+| **Swagger UI** | `http://localhost:8000/docs` ↗️ |
+| **ReDoc** | `http://localhost:8000/redoc` ↗️ |
+
+## ⚙️SetUp Instructions
+
+Follow these steps to run backend locally
+
+### 1 Clone the repository
+
+```bash
+git clone [https://github.com/yourusername/Essentia.git](https://github.com/yourusername/Essentia.git)
+cd src/python-backend
+
+```
+
+### 2 Create and activate Virtual Environment
+
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+
+```
+
+### 3 Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4 SetUp Database
+
+Ensure your PostgreSQL server is running and update your credentials in db.py.
+
+### 5 Run the FastAPI Api
+API Available at:
+
+➡️ `http://localhost:8000`
+
+## 🧱 Folder Structure
+
+```graphql
+python-backend/
+├── routes/
+│   └── perfume_routes.py  # Endpoints for perfume CRUD
+├── tests/
+│   ├── test_perfumes.py  # CRUD test cases for perfume
+├── schemas/ 
+│   ├── Perfume.py       
+│   ├── PerfumeHouse.py  
+│   └── Concentration.py              
+└── db.py                  # DB connection & Base config
+```
