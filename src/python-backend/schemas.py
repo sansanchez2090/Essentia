@@ -17,6 +17,9 @@ class PerfumeUpdate(PerfumeBase):
     release_year: Optional[int] = None
     gender: Optional[str] = None
     image_url: Optional[str] = None
+
+class PerfumeCreate(PerfumeBase):
+    pass
     
 class ConcentrationBase(BaseModel):
     name: str
