@@ -3,6 +3,8 @@ from sqlalchemy.orm import relationship #type:ignore
 from datetime import datetime
 from db import Base
 
+"""This module defines the SQLAlchemy models for the database schema."""
+
 # Correlation table
 perfume_olfactive_notes = Table(
     "perfume_olfactive_notes",

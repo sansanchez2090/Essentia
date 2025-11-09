@@ -5,6 +5,7 @@ from db import SessionLocal, engine
 from typing import Annotated
 from db import get_db
 
+"""This module defines the API routes for managing perfumes."""
 
 router = APIRouter()
 

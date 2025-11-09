@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient # type: ignore
 from main import app
 
+"""This module contains tests for the perfume API routes."""
+
 client = TestClient(app)
 
 def test_get_all_perfumes():

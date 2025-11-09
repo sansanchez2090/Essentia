@@ -1,5 +1,8 @@
 from pydantic import BaseModel # type: ignore
 from typing import List
+from datetime import date
+
+"""This module sets up the Pydantic schemas for data validation and serialization."""
 
 class PerfumeBase(BaseModel):
     name: str
@@ -24,3 +27,16 @@ class PerfumeHouseBase(BaseModel):
     website: str
     Perfumes: List[PerfumeBase] = []
 
+class OlfactiveNoteBase(BaseModel):
+    name: str
+    category: str
+
+class PerfumerBase(BaseModel):
+    name: str
+    nationality: str
+    biography: str
+
+class ReviewBase(BaseModel):
+    rating: int
+    comment: str
+    date: date # AAAA-MM-DD
