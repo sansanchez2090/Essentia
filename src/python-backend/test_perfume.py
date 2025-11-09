@@ -68,3 +68,19 @@ def test_delete_perfume():
     # Validating
     get_response = client.get(f"/perfumes/{perfume_id}")
     assert get_response.status_code == 404
+
+def test_create_perfume():
+    new_perfume = {
+        "name": "Gold Lash",
+        "description": "A magical light amber scent.",
+        "release_year": 2022,
+        "gender": "Unisex",
+        "image_url": "https://example.com/goldlash.jpg"
+    }
+
+    response = client.post("/perfumes", json=new_perfume)
+    assert response.status_code == 200  # created
+    data = response.json()
+    assert data["name"] == new_perfume["name"]
+    assert data["gender"] == new_perfume["gender"]
+    assert "id" in data
