@@ -31,6 +31,8 @@ Base = declarative_base()
 
 ## 🧠 API Documentation
 
+FastAPI automatically generates interactive API documentation:
+
 | Type | URL |
 | :--- | :--- |
 | **Swagger UI** | `http://localhost:8000/docs` ↗️ |
@@ -40,7 +42,7 @@ Base = declarative_base()
 
 Follow these steps to run backend locally
 
-### 1 Clone the repository
+### 1️⃣ Clone the repository
 
 ```bash
 git clone [https://github.com/yourusername/Essentia.git](https://github.com/yourusername/Essentia.git)
@@ -48,7 +50,7 @@ cd src/python-backend
 
 ```
 
-### 2 Create and activate Virtual Environment
+### 2️⃣ Create and activate Virtual Environment
 
 ```bash
 python -m venv venv
@@ -61,17 +63,17 @@ source venv/bin/activate
 
 ```
 
-### 3 Install Dependencies
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4 SetUp Database
+### 4️⃣ SetUp Database
 
 Ensure your PostgreSQL server is running and update your credentials in db.py.
 
-### 5 Run the FastAPI Api
+### 5️⃣ Run the FastAPI Api
 API Available at:
 
 ➡️ `http://localhost:8000`
