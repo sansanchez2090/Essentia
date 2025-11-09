@@ -28,7 +28,7 @@ async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get
     return perfume
 
 @router.post("/perfumes")
-def create_perfume(perfume: schemas.PerfumeBase, db: Annotated[Session, Depends(get_db)]):
+def create_perfume(perfume: schemas.PerfumeCreate, db: Annotated[Session, Depends(get_db)]):
     """create a perfume
 """
     db_perfume = models.Perfume(name=perfume.name,
