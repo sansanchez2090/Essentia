@@ -1,5 +1,5 @@
 from pydantic import BaseModel # type: ignore
-from typing import List
+from typing import List, Optional
 from datetime import date
 
 """This module sets up the Pydantic schemas for data validation and serialization."""
@@ -11,6 +11,16 @@ class PerfumeBase(BaseModel):
     gender: str
     image_url: str
 
+class PerfumeUpdate(PerfumeBase):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    release_year: Optional[int] = None
+    gender: Optional[str] = None
+    image_url: Optional[str] = None
+
+class PerfumeCreate(PerfumeBase):
+    pass
+    
 class ConcentrationBase(BaseModel):
     name: str
     percentage: float
