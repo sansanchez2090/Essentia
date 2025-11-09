@@ -29,9 +29,8 @@ async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get
 
 @router.post("/perfumes")
 def create_perfume(perfume: schemas.PerfumeBase, db: Annotated[Session, Depends(get_db)]):
-    """
-    create a perfume
-    """
+    """create a perfume
+"""
     db_perfume = models.Perfume(name=perfume.name,
                                 description=perfume.description,
                                 release_year=perfume.release_year,
@@ -45,9 +44,7 @@ def create_perfume(perfume: schemas.PerfumeBase, db: Annotated[Session, Depends(
 
 @router.delete("/perfumes/{perfume_id}")
 async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)]):
-    """
-    delete a perfume
-    """
+    """delete a perfume"""
     perfume = db.query(models.Perfume).filter(models.Perfume.id == perfume_id).first()
     if perfume is None:
         raise HTTPException(status_code=404, detail=f"Perfume with ID: {perfume_id} not found")
@@ -57,11 +54,9 @@ async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)
 
 @router.put("/perfumes/{perfume_id}")
 async def update_perfume(perfume_id: int, 
-                         updated_perfume: schemas.PerfumeBase, 
+                         updated_perfume: schemas.PerfumeUpdate, 
                          db: Annotated[Session, Depends(get_db)]):
-    """
-    update a perfume
-    """
+    """update a perfume"""
     
     perfume_query = db.query(models.Perfume).filter(models.Perfume.id == perfume_id).first()
 
@@ -77,4 +72,4 @@ async def update_perfume(perfume_id: int,
 
     db.refresh(perfume_query)
 
-    return {"data": perfume_query}
+    return perfume_query
