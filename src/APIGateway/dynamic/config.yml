@@ -1,0 +1,10 @@
+http:
+  middlewares:
+    strip-auth-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api/auth"
+    strip-catalog-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api/catalog"

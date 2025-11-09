@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v3.0
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080" # Panel de control
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
+    networks:
+      - essentia-net
+
+  auth-service:
+    build: ./java-backend
+    container_name: auth-service
+    ports:
+      - "8081:8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/api/auth`)"
+      - "traefik.http.services.auth.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.auth-strip.stripPrefix.prefixes=/api/auth"
+      - "traefik.http.routers.auth.middlewares=auth-strip"
+    networks:
+      - essentia-net
+
+  catalog-service:
+    build: ./python-backend
+    container_name: catalog-service
+    ports:
+      - "8001:8000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.catalog.rule=PathPrefix(`/api/catalog`)"
+      - "traefik.http.services.catalog.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.catalog-strip.stripPrefix.prefixes=/api/catalog"
+      - "traefik.http.routers.catalog.middlewares=catalog-strip"
+    networks:
+      - essentia-net
+
+networks:
+  essentia-net:
+    driver: bridge
