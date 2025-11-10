@@ -5,9 +5,8 @@ A robust Spring Boot authentication service featuring user management, JWT-based
 ## 🚀 Features
 - User Registration & Authentication  
 - JWT Token-based Security  
-- Role-based Access Control (USER, ADMIN, MODERATOR)  
+- Role-based Access Control (USER, ADMIN)  
 - User Profile Management  
-- Password Reset Functionality  
 - Docker Containerization  
 - Comprehensive Unit Tests  
 
