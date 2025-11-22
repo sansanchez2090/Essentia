@@ -52,21 +52,37 @@ cd src/python-backend
 
 ### 2️⃣ Create and activate Virtual Environment
 
+#### ✔ Install Poetry
+If you haven't already:
 ```bash
-python -m venv venv
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
 
-# Windows
-venv\Scripts\activate
+```
+### 3️⃣ Install dependencies and run the environment
 
-# Linux / macOS
-source venv/bin/activate
+Poetry 2.x no longer enables poetry shell by default, so activation works differently.
+
+#### 🟦 Poetry ≥ 2.0.0 (recommended)
+```bash
+poetry install
+```
+**Run the environment**
+
+```bash
+poetry run uvicorn main:app --reload
+```
+
+#### 🟩 Poetry ≤ 1.6 (legacy versions)
+Older versions:
+
+```bash
+poetry shell
 
 ```
 
-### 3️⃣ Install Dependencies
-
 ```bash
-pip install -r requirements.txt
+uvicorn main:app --reload
+
 ```
 
 ### 4️⃣ SetUp Database
@@ -90,5 +106,7 @@ python-backend/
 │   ├── Perfume.py       
 │   ├── PerfumeHouse.py  
 │   └── Concentration.py              
-└── db.py                  # DB connection & Base config
+├──db.py   # DB connection & Base config
+├──pyproject.toml 
+└──README.md                  
 ```
