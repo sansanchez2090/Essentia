@@ -1,0 +1,45 @@
+name: Run Unit Tests & Lint (Spring Boot)
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+
+      - name: Install Dependencies
+        run: mvn dependency:resolve
+
+      - name: Run Checkstyle
+        run: mvn -B checkstyle:check || true
+
+      - name: Run Spotbugs
+        run: mvn -B spotbugs:check || true
+
+      - name: Run Unit Tests
+        run: mvn -B test
+
+      - name: Build JAR (optional)
+        if: github.event_name == 'push'
+        run: mvn -B clean package -DskipTests

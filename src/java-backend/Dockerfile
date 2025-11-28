@@ -1,16 +1,15 @@
 # ===== STAGE 1: Build =====
-FROM eclipse-temurin:17-jdk-jammy AS builder
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-# Instalar Maven
-RUN apt-get update && apt-get install -y maven
-
-# Copiar archivos necesarios para compilar
+# Copiar archivos del proyecto
 COPY pom.xml ./
 RUN mvn dependency:go-offline -B
 
 COPY src ./src
+
+# Compilar sin tests
 RUN mvn clean package -DskipTests -B
 
 
@@ -19,8 +18,12 @@ FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 
-# Copiar solo el jar generado desde la etapa anterior
-COPY --from=builder /app/target/auth-service-0.0.1-SNAPSHOT.jar app.jar
+# Crear usuario no root por seguridad
+RUN useradd -m springuser
+USER springuser
+
+# Copiar el jar compilado en el stage anterior
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8081
 
