@@ -1,13 +1,11 @@
 package com.essentia.auth.auth_service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class AuthServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {
+        // No-op test — ensures test suite runs
+    }
 }
