@@ -1,32 +1,33 @@
-name: Java Tests
+name: Run Java Unit Tests
 
 on:
   push:
     branches: 
       - "**"
   pull_request:
-    branches:
+    branches: 
       - "**"
 
 jobs:
-  test:
+  test-java:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup JDK
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
-          java-version: "17"
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Verify test resources
-        run: ls -R java-backend/src/test/resources || echo "Test resources missing"
+      - name: Check test resources
+        run: ls -R src/java-backend/src/test/resources || echo "Test resources missing"
 
-      - name: Install Dependencies
-        run: mvn -B -f java-backend/pom.xml dependency:resolve
+      - name: Run Maven Tests (profile test)
+        working-directory: ./src/java-backend
+        run: mvn -B -q test -Dspring.profiles.active=test
 
-      - name: Run Test Suite
-        run: mvn -B -f java-backend/pom.xml test -Dspring.profiles.active=test
+      - name: Reduce Spring logging noise
+        run: echo "logging.level.root=WARN" >> src/java-backend/src/test/resources/application-test.properties
