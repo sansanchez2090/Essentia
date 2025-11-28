@@ -36,4 +36,4 @@ jobs:
 
       - name: Run Tests
         working-directory: ./src/java-backend
-        run: mvn -B test
+        run: mvn test -Dspring.profiles.active=test 
