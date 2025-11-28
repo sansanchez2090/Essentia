@@ -8,6 +8,7 @@ import com.essentia.auth.auth_service.repository.RoleRepository;
 import com.essentia.auth.auth_service.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@Profile("!test")
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
