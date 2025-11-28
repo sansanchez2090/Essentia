@@ -1,11 +1,11 @@
-name: Java Backend Tests
+name: Java Tests
 
 on:
   push:
     branches: 
       - "**"
   pull_request:
-    branches: 
+    branches:
       - "**"
 
 jobs:
@@ -16,24 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Move into java-backend directory
-        working-directory: ./src/java-backend
-        run: ls -la
+      - name: Verify test resources
+        run: ls -R java-backend/src/test/resources || echo "Test resources missing"
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('src/java-backend/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2-
+      - name: Install Dependencies
+        run: mvn -B -f java-backend/pom.xml dependency:resolve
 
-      - name: Run Tests
-        working-directory: ./src/java-backend
-        run: mvn test -Dspring.profiles.active=test 
+      - name: Run Test Suite
+        run: mvn -B -f java-backend/pom.xml test -Dspring.profiles.active=test
