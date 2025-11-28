@@ -1,4 +1,4 @@
-name: Run Unit Tests & Lint (Spring Boot)
+name: Java Backend Tests
 
 on:
   push:
@@ -14,32 +14,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
 
+      - name: Move into java-backend directory
+        working-directory: ./src/java-backend
+        run: ls -la
+
       - name: Cache Maven packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('src/java-backend/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-m2
+            ${{ runner.os }}-m2-
 
-      - name: Install Dependencies
-        run: mvn dependency:resolve
-
-      - name: Run Checkstyle
-        run: mvn -B checkstyle:check || true
-
-      - name: Run Spotbugs
-        run: mvn -B spotbugs:check || true
-
-      - name: Run Unit Tests
+      - name: Run Tests
+        working-directory: ./src/java-backend
         run: mvn -B test
-
-      - name: Build JAR (optional)
-        if: github.event_name == 'push'
-        run: mvn -B clean package -DskipTests
