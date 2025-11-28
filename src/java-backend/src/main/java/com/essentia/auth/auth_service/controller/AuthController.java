@@ -22,7 +22,7 @@ public class AuthController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Auth service is running";
+        return "Auth service is running properly";
     }
 
     @PostMapping("/register")
