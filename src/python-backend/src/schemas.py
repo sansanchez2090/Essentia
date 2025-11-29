@@ -1,10 +1,11 @@
-from pydantic import BaseModel # type: ignore
-from typing import List, Optional
-from datetime import date
-
 """This module sets up the Pydantic schemas for data validation and serialization."""
 
+# pylint: disable=R0903
+from typing import Optional
+from pydantic import BaseModel # type: ignore
+
 class PerfumeBase(BaseModel):
+    """Base schema for Perfume."""
     name: str
     description: str
     release_year: int
@@ -12,6 +13,7 @@ class PerfumeBase(BaseModel):
     image_url: str
 
 class PerfumeUpdate(PerfumeBase):
+    """Schema for updating Perfume; all fields are optional."""
     name: Optional[str] = None
     description: Optional[str] = None
     release_year: Optional[int] = None
@@ -19,34 +21,12 @@ class PerfumeUpdate(PerfumeBase):
     image_url: Optional[str] = None
 
 class PerfumeCreate(PerfumeBase):
-    pass
-    
-class ConcentrationBase(BaseModel):
-    name: str
-    percentage: float
+    """Schema for creating a new Perfume."""
 
-class PerfumeTypeBase(BaseModel):
-    name: str
-    description: str  
+class PerfumeResponse(PerfumeBase):
+    """Schema for Perfume response, includes ID."""
+    id: int
 
-class PerfumeHouseBase(BaseModel):
-    name: str
-    country: str
-    founding_year:int
-    description: str
-    website: str
-    Perfumes: List[PerfumeBase] = []
-
-class OlfactiveNoteBase(BaseModel):
-    name: str
-    category: str
-
-class PerfumerBase(BaseModel):
-    name: str
-    nationality: str
-    biography: str
-
-class ReviewBase(BaseModel):
-    rating: int
-    comment: str
-    date: date # AAAA-MM-DD
+    class Config:
+        """Pydantic configuration to enable ORM mode."""
+        orm_mode = True
