@@ -31,5 +31,5 @@ jobs:
       - name: Static Code Analysis
         run: poetry run pylint .
 
-      # - name: Run UnitTests
-      #   run: poetry run pytest
+      - name: Run UnitTests
+        run: poetry run pytest
