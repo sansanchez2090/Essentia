@@ -7,20 +7,20 @@ from src import models, schemas
 from src.db import get_db
 
 
-router = APIRouter()
+router = APIRouter(prefix="/perfumes", tags=["Perfumes"])
 
-@router.get("/perfumes")
+@router.get("/", response_model=List[schemas.PerfumeBase])
 async def get_perfumes(db: Annotated[Session, Depends(get_db)]):
     """
-    Retrieve all perfumes
+    Retrieves all perfumes.
     """
     perfumes = db.query(models.Perfume).all()
     return perfumes
 
-@router.get("/perfumes/{perfume_id}")
+@router.get("/{perfume_id}", response_model=schemas.PerfumeBase)
 async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get_db)]):
     """
-    Retrieve a perfume by it's id 
+    Retrieve a perfume by it'd ID.
     """
     perfume = db.query(models.Perfume).filter(models.Perfume.id == perfume_id).first()
     if perfume is None:
@@ -29,22 +29,21 @@ async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get
 
 @router.post("/perfumes", response_model=schemas.PerfumeResponse)
 def create_perfume(perfume: schemas.PerfumeCreate, db: Annotated[Session, Depends(get_db)]):
-    """create a perfume
-"""
-    db_perfume = models.Perfume(name=perfume.name,
-                                description=perfume.description,
-                                release_year=perfume.release_year,
-                                gender=perfume.gender,
-                                image_url=perfume.image_url)
+    """
+    Creates a perfume
+    """
+    db_perfume = models.Perfume(**perfume.model_dump())
     db.add(db_perfume)
     db.commit()
     db.refresh(db_perfume)
 
     return db_perfume
 
-@router.delete("/perfumes/{perfume_id}")
+@router.delete("/{perfume_id}")
 async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)]):
-    """delete a perfume"""
+    """
+    Deletes a perfume by it'd ID.
+    """
     perfume = db.query(models.Perfume).filter(models.Perfume.id == perfume_id).first()
     if perfume is None:
         raise HTTPException(status_code=404, detail=f"Perfume with ID: {perfume_id} not found")
