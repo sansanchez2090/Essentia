@@ -1,16 +1,19 @@
+"""This module contains performance tests for the Perfume API routes."""
+
 from fastapi.testclient import TestClient # type: ignore
 from src.main import app
 
-"""This module contains tests for the perfume API routes."""
 
 client = TestClient(app)
 
 def test_get_all_perfumes():
+    """Tests retrieving all perfumes."""
     response = client.get("/perfumes")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 def test_get_perfume_by_id():
+    """Tests retrieving a perfume by its ID."""
     # Create a perfume
     perfume = {
         "name": "Azure Bloom",
@@ -30,6 +33,7 @@ def test_get_perfume_by_id():
     assert data["gender"] == "Feminine"
 
 def test_update_perfume():
+    """Tests updating a perfume's information."""
     # Crear perfume
     perfume = {
         "name": "Crimson Oud",
@@ -49,6 +53,7 @@ def test_update_perfume():
     assert updated_perfume["description"] == "Deep woody oud with a touch of rose."
 
 def test_delete_perfume():
+    """Tests the deletion of a perfume."""
     # Crear perfume
     perfume = {
         "name": "Velvet Amber",
@@ -70,6 +75,7 @@ def test_delete_perfume():
     assert get_response.status_code == 404
 
 def test_create_perfume():
+    """Tests the creation of a new perfume."""
     new_perfume = {
         "name": "Gold Lash",
         "description": "A magical light amber scent.",
