@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient # type: ignore
-from main import app
+from src.main import app
 
 """This module contains tests for the perfume API routes."""
 
