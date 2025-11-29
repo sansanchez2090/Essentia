@@ -22,14 +22,29 @@ jobs:
       - name: Install poetry
         run: pip install poetry
       
+      - # ... (Part of your tests.yaml) ...
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # ... (Setup Python and Install Poetry steps remain the same) ...
+
+      - name: Install poetry
+        run: pip install poetry
+      
       - name: Install Dependencies
         run: poetry install --with dev
+        working-directory: python-backend  
 
       - name: Black Formatter
         run: poetry run black . --check
+        working-directory: python-backend  
 
       - name: Static Code Analysis
-        run: poetry run pylint .
-
+        run: poetry run pylint src
+        working-directory: python-backend 
+        
       - name: Run UnitTests
         run: poetry run pytest
+        working-directory: python-backend 
