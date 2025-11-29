@@ -1,6 +1,6 @@
 """This module defines the API routes for managing perfumes."""
 
-from typing import Annotated
+from typing import Annotated, List
 from fastapi import Depends, HTTPException, APIRouter # type: ignore
 from sqlalchemy.orm import Session # type: ignore
 from src import models, schemas
