@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey, Table, DateTime #type: ignore
 from sqlalchemy.orm import relationship #type:ignore
 from datetime import datetime
-from db import Base
+from src.db import Base
 
 """This module defines the SQLAlchemy models for the database schema."""
 

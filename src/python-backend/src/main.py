@@ -1,7 +1,7 @@
 from fastapi import FastAPI# type: ignore
-import models
-from db import engine
-from routes import perfume
+from src import models
+from src.db import engine
+from src.routes import perfume
 
 # Create db tables
 models.Base.metadata.create_all(bind=engine)

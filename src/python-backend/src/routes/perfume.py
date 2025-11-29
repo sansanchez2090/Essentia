@@ -1,9 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException, APIRouter # type: ignore
 from sqlalchemy.orm import Session # type: ignore
-import models, schemas
-from db import SessionLocal, engine
+from src import models, schemas
+from src.db import SessionLocal, engine, get_db
 from typing import Annotated
-from db import get_db
 
 """This module defines the API routes for managing perfumes."""
 
