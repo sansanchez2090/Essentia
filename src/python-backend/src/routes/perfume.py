@@ -1,7 +1,7 @@
-"""Defines the API routes for managing Perfume entities."""
+"""This module defines the API routes for managing perfumes."""
 
-from typing import Annotated, List
-from fastapi import APIRouter, Depends, HTTPException # type: ignore
+from typing import Annotated
+from fastapi import Depends, HTTPException, APIRouter # type: ignore
 from sqlalchemy.orm import Session # type: ignore
 from src import models, schemas
 from src.db import get_db
@@ -27,7 +27,7 @@ async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get
         raise HTTPException(status_code=404, detail=f"Perfume with ID: {perfume_id} not found")
     return perfume
 
-@router.post("/", response_model=schemas.PerfumeBase)
+@router.post("/perfumes", response_model=schemas.PerfumeResponse)
 def create_perfume(perfume: schemas.PerfumeCreate, db: Annotated[Session, Depends(get_db)]):
     """
     Creates a perfume
@@ -51,13 +51,11 @@ async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)
     db.commit()
     return {"detail": "Perfume deleted successfully"}
 
-@router.put("/{perfume_id}", response_model=schemas.PerfumeBase)
+@router.put("/perfumes/{perfume_id}", response_model=schemas.PerfumeResponse)
 async def update_perfume(perfume_id: int,
                          updated_perfume: schemas.PerfumeUpdate,
                          db: Annotated[Session, Depends(get_db)]):
-    """
-    Updates information by it's ID.
-    """
+    """update a perfume"""
 
     perfume_query = db.query(models.Perfume).filter(models.Perfume.id == perfume_id).first()
 
@@ -65,6 +63,7 @@ async def update_perfume(perfume_id: int,
         raise HTTPException(status_code=404, detail=f"Perfume with ID: {perfume_id} not found")
 
     perfume_data = updated_perfume.model_dump(exclude_unset=True)
+    # Use exclude_unset to avoid updating fields that were not provided
 
     for key, value in perfume_data.items():
         setattr(perfume_query, key, value)
