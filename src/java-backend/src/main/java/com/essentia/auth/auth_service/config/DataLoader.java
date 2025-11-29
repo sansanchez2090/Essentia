@@ -8,6 +8,7 @@ import com.essentia.auth.auth_service.repository.RoleRepository;
 import com.essentia.auth.auth_service.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@Profile("!test")
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
@@ -34,6 +36,7 @@ public class DataLoader implements CommandLineRunner {
         // Only create users if they don't exist
         createUserIfNotExists("admin", "admin@example.com", "admin123", "ROLE_ADMIN", "System", "Administrator");
         createUserIfNotExists("testuser", "user@example.com", "user123", "ROLE_USER", "John", "Doe");
+        createUserIfNotExists("dummyUser", "user@gmail.com", "user123", "ROLE_USER", "Josh", "Doe");
     }
 
     private void createRoles() {
