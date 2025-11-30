@@ -24,16 +24,16 @@ jobs:
       
       - name: Install Dependencies
         run: poetry install --with dev
-        working-directory: python-backend  
+        working-directory: src/python-backend  
 
       - name: Black Formatter
         run: poetry run black . --check
-        working-directory: python-backend  
+        working-directory: src/python-backend  
 
       - name: Static Code Analysis
         run: poetry run pylint src
-        working-directory: python-backend 
+        working-directory: src/python-backend 
         
       - name: Run UnitTests
         run: poetry run pytest
-        working-directory: python-backend 
+        working-directory: src/python-backend 
