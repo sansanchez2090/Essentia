@@ -1,4 +1,4 @@
-name: Run Unit Tests & Lint
+name: Run Python Unit Tests & Lint
 
 on:
   push:
@@ -10,6 +10,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: runner
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,23 +33,25 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.13"    
-
+          python-version: "3.13"
+          
       - name: Install poetry
         run: pip install poetry
       
       - name: Install Dependencies
         run: poetry install --with dev
-        working-directory: python-backend  
+        working-directory: src/python-backend  
 
       - name: Black Formatter
         run: poetry run black . --check
-        working-directory: python-backend  
+        working-directory: src/python-backend  
 
       - name: Static Code Analysis
         run: poetry run pylint src
-        working-directory: python-backend 
+        working-directory: src/python-backend 
         
       - name: Run UnitTests
         run: poetry run pytest
-        working-directory: python-backend 
+        working-directory: src/python-backend
+        env:
+          URL_DATABASE: postgresql://runner:password@localhost:5432/test_db 
