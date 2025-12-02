@@ -1,4 +1,4 @@
-name: Run Unit Tests & Lint
+name: Run Pyton Unit Tests & Lint
 
 on:
   push:
