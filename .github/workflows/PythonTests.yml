@@ -53,4 +53,4 @@ jobs:
         run: poetry run pytest
         working-directory: src/python-backend
         env:
-          URL_DATABASE: postgresql+psycopg://runner:password@localhost:5432/test_db 
+          URL_DATABASE: postgresql://runner:password@localhost:5432/test_db 
