@@ -1,4 +1,4 @@
-name: Run Pyton Unit Tests & Lint
+name: Run Python Unit Tests & Lint
 
 on:
   push:
@@ -25,8 +25,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-      force-kill-services: true
 
     steps:
       - name: Checkout repository
