@@ -2,7 +2,7 @@
 
 # pylint: disable=R0903
 from typing import Optional
-from pydantic import BaseModel  # type: ignore
+from pydantic import BaseModel, ConfigDict  # type: ignore
 
 
 class PerfumeBase(BaseModel):
@@ -34,7 +34,4 @@ class PerfumeResponse(PerfumeBase):
 
     id: int
 
-    class Config:
-        """Pydantic configuration to enable ORM mode."""
-
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
