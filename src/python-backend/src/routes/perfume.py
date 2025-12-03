@@ -32,7 +32,7 @@ async def get_perfumes_by_id(perfume_id: int, db: Annotated[Session, Depends(get
     return perfume
 
 
-@router.post("/", response_model=schemas.PerfumeResponse)
+@router.post("/", response_model=schemas.PerfumeResponse, status_code=201)
 def create_perfume(
     perfume: schemas.PerfumeCreate, db: Annotated[Session, Depends(get_db)]
 ):
@@ -47,7 +47,7 @@ def create_perfume(
     return db_perfume
 
 
-@router.delete("/{perfume_id}")
+@router.delete("/{perfume_id}", status_code=204)
 async def delete_perfume(perfume_id: int, db: Annotated[Session, Depends(get_db)]):
     """
     Deletes a perfume by it'd ID.
