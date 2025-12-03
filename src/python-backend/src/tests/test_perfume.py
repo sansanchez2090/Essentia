@@ -1,7 +1,16 @@
 """This module contains tests for the perfume API routes."""
 
+# pylint: disable=E0401, C0413
+
+import os
+import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+backend_dir = os.path.abspath(os.path.join(current_dir, "..", ".."))
+sys.path.insert(0, backend_dir)
+
 from fastapi.testclient import TestClient  # type: ignore
-from src.main import app
+from main import app
 
 client = TestClient(app)
 
@@ -70,8 +79,8 @@ def test_delete_perfume():
 
     # Deleting
     delete_response = client.delete(f"/perfumes/{perfume_id}")
-    assert delete_response.status_code == 200
-    assert delete_response.json()["detail"] == "Perfume deleted successfully"
+    assert delete_response.status_code == 204
+    assert not delete_response.text
 
     # Validating
     get_response = client.get(f"/perfumes/{perfume_id}")
@@ -89,7 +98,7 @@ def test_create_perfume():
     }
 
     response = client.post("/perfumes", json=new_perfume)
-    assert response.status_code == 200  # created
+    assert response.status_code == 201  # created
     data = response.json()
     assert data["name"] == new_perfume["name"]
     assert data["gender"] == new_perfume["gender"]
